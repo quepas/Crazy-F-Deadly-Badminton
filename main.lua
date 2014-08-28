@@ -1,11 +1,11 @@
+require('player')
 
 function love.load()
 	love.window.setMode(800, 600, {vsync=true, centered=true})
 	love.graphics.setBackgroundColor(120,162,189)
 	pitch = love.graphics.newImage('img/Pitch.png')
 	racquet = love.graphics.newImage('img/Racquet.png')
-	the_man = love.graphics.newImage('img/The man.png')
-	x = 135
+	the_man = newPlayer(135, 390)
 end
 
 function love.keypressed(key)
@@ -16,17 +16,15 @@ end
 
 function love.update(dt)
 	if love.keyboard.isDown('left') then
-		x = x - 5
+		the_man:moveBy(-5, 0)
 	end
 	if love.keyboard.isDown('right') then
-		x = x + 5
+		the_man:moveBy(5, 0)
 	end
 end
 
 function love.draw()
 	love.graphics.draw(pitch, 0, 0)
-	love.graphics.draw(the_man, x, 390)
-
-
+	the_man:draw()
 end
 
