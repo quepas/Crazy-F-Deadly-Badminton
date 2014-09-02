@@ -17,6 +17,21 @@ function love.load()
 	objects.ground.shape = love.physics.newRectangleShape(800, 10)
 	objects.ground.fixture = love.physics.newFixture(objects.ground.body, objects.ground.shape)
 
+	objects.boundry_left = {}
+	objects.boundry_left.body = love.physics.newBody(world, -1, 300)
+	objects.boundry_left.shape = love.physics.newRectangleShape(2, 600)
+	objects.boundry_left.fixture = love.physics.newFixture(objects.boundry_left.body, objects.boundry_left.shape)
+
+	objects.boundry_right = {}
+	objects.boundry_right.body = love.physics.newBody(world, 801, 300)
+	objects.boundry_right.shape = love.physics.newRectangleShape(2, 600)
+	objects.boundry_right.fixture = love.physics.newFixture(objects.boundry_right.body, objects.boundry_right.shape)
+
+	objects.boundry_top = {}
+	objects.boundry_top.body = love.physics.newBody(world, 400, -1)
+	objects.boundry_top.shape = love.physics.newRectangleShape(800, 2)
+	objects.boundry_top.fixture = love.physics.newFixture(objects.boundry_top.body, objects.boundry_top.shape)
+
 	objects.ball = {}
 	objects.ball.body = love.physics.newBody(world, 400, 400, 'dynamic')
 	objects.ball.shape = love.physics.newCircleShape(8)
