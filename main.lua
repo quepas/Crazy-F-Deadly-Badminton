@@ -6,10 +6,10 @@ function love.load()
 	love.window.setMode(800, 600, {vsync=true, centered=true})
 	love.graphics.setBackgroundColor(120,162,189)
 	pitch = love.graphics.newImage('img/Pitch.png')
-	racquet = love.graphics.newImage('img/Racquet.png')
 	love.physics.setMeter(PX_IN_M)
 	world = love.physics.newWorld(0, 9.81*PX_IN_M, true)
 	the_man = newPlayer(135, 390, world)
+	the_man:setRacquet('img/Racquet.png')
 	objects = {}
 
 	objects.ground = {}
@@ -32,6 +32,11 @@ function love.load()
 	objects.boundry_top.shape = love.physics.newRectangleShape(800, 2)
 	objects.boundry_top.fixture = love.physics.newFixture(objects.boundry_top.body, objects.boundry_top.shape)
 
+	objects.boundry_center = {}
+	objects.boundry_center.body = love.physics.newBody(world, 401, 358)
+	objects.boundry_center.shape = love.physics.newRectangleShape(33, 293)
+	objects.boundry_center.fixture = love.physics.newFixture(objects.boundry_center.body, objects.boundry_center.shape)
+
 	objects.ball = {}
 	objects.ball.body = love.physics.newBody(world, 400, 400, 'dynamic')
 	objects.ball.shape = love.physics.newCircleShape(8)
@@ -53,6 +58,9 @@ function love.update(dt)
 	end
 	if love.keyboard.isDown('right') then
 		the_man:move('right',PLAYER_FORCE)
+	end
+	if love.keyboard.isDown(' ') then
+		the_man:swipe()
 	end
 	if love.keyboard.isDown('d') then
 		objects.ball.body:applyForce(40, 0)
