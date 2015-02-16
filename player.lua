@@ -1,9 +1,9 @@
 local player = {}
 player.__index = player
 
-local START_ANGLE = -45
-local END_ANGLE = 30
-local DIFF_ANGLE = 1.2
+local START_ANGLE = 0
+local END_ANGLE = 80
+local DIFF_ANGLE = 4.2
 
 function newPlayer(x, y, world)
   local new = {}
@@ -15,6 +15,11 @@ function newPlayer(x, y, world)
   new.body = love.physics.newBody(world, x + new.img_x/2, y + new.img_y/2, 'dynamic')
   new.shape = love.physics.newRectangleShape(new.img_x, new.img_y)
   new.fixture = love.physics.newFixture(new.body, new.shape, 1)
+  new.racquet_x = new.x + 110
+  new.racquet_y = new.y + 55
+  new.body_racquet = love.physics.newBody(world, new.racquet_x, new.racquet_y, 'dynamic')
+  new.shape_racquet = love.physics.newCircleShape(new.racquet_x, new.racquet_y, 20)
+  new.fixture = love.physics.newFixture(new.body_racquet, new.shape_racquet, 1)
   new.has_racquet = false
   new.has_swiping = false
   new.actual_angle = START_ANGLE
@@ -74,7 +79,7 @@ end
 function player:draw()
   love.graphics.draw(self.img, self.x, self.y)
   if self.has_racquet then
-    love.graphics.draw(self.racquet, self.x + 24, self.y + 29, math.rad(self.actual_angle), 1, 1, self.racquet:getWidth()/2,  self.racquet:getHeight())
+    love.graphics.draw(self.racquet, self.x + 100, self.y + 45, math.rad(self.actual_angle), 1, 1, self.racquet:getWidth()/2,  self.racquet:getHeight())
   end
 end
 
