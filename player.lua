@@ -1,8 +1,8 @@
 local player = {}
 player.__index = player
 
-local START_ANGLE = 0
-local END_ANGLE = 80
+local START_ANGLE = -45
+local END_ANGLE = 30
 local DIFF_ANGLE = 4.2
 
 function newPlayer(x, y, world)
@@ -15,10 +15,10 @@ function newPlayer(x, y, world)
   new.body = love.physics.newBody(world, x + new.img_x/2, y + new.img_y/2, 'dynamic')
   new.shape = love.physics.newRectangleShape(new.img_x, new.img_y)
   new.fixture = love.physics.newFixture(new.body, new.shape, 1)
-  new.racquet_x = new.x + 110
-  new.racquet_y = new.y + 55
+  new.racquet_x = new.x + 100
+  new.racquet_y = new.y + 45
   new.body_racquet = love.physics.newBody(world, new.racquet_x, new.racquet_y, 'dynamic')
-  new.shape_racquet = love.physics.newCircleShape(new.racquet_x, new.racquet_y, 20)
+  new.shape_racquet = love.physics.newCircleShape(new.racquet_x, new.racquet_y, 2000)
   new.fixture = love.physics.newFixture(new.body_racquet, new.shape_racquet, 1)
   new.has_racquet = false
   new.has_swiping = false
@@ -69,6 +69,8 @@ function player:update(dt)
   self:moveTo(self.body:getX()-self.img_x/2, self.body:getY()-self.img_y/2)
   if self.has_swiping then
     self.actual_angle = self.actual_angle + DIFF_ANGLE
+    --self.racquet_x = 
+    --self.racquet_y = 
     if self.actual_angle > END_ANGLE then
       self.has_swiping = false
       self.actual_angle = START_ANGLE
@@ -82,4 +84,3 @@ function player:draw()
     love.graphics.draw(self.racquet, self.x + 100, self.y + 45, math.rad(self.actual_angle), 1, 1, self.racquet:getWidth()/2,  self.racquet:getHeight())
   end
 end
-

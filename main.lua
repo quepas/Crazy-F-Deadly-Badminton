@@ -82,7 +82,7 @@ end
 function love.draw()
 	love.graphics.draw(pitch, 0, 0)
 	the_man:draw()
-	the_man1:draw() -- *
+	the_man1:draw()
 
 	love.graphics.setColor(193, 255, 14)
 	love.graphics.circle('fill', objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
