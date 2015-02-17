@@ -18,8 +18,8 @@ function newPlayer(x, y, world)
   new.racquet_x = new.x + 100
   new.racquet_y = new.y + 45
   new.body_racquet = love.physics.newBody(world, new.racquet_x, new.racquet_y, 'dynamic')
-  new.shape_racquet = love.physics.newCircleShape(new.racquet_x, new.racquet_y, 2000)
-  new.fixture = love.physics.newFixture(new.body_racquet, new.shape_racquet, 1)
+  new.shape_racquet = love.physics.newCircleShape(30)
+  new.fixture_racquet = love.physics.newFixture(new.body_racquet, new.shape_racquet, 1)
   new.has_racquet = false
   new.has_swiping = false
   new.actual_angle = START_ANGLE
