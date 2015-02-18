@@ -17,11 +17,8 @@ function newPlayer(x, y, world)
   new.fixture = love.physics.newFixture(new.body, new.shape, 1)
   new.racquet_x = new.x + 100
   new.racquet_y = new.y + 45
-  new.racquet_img = love.graphics.newImage("img/Racquet.png")
-  new.racquet_img_x = new.racquet_img:getWidth()
-  new.racquet_img_y = new.racqeut_img:getHeight()
-  new.body_racquet = love.physics.newBody(world, new.racquet_x + new.racquet_img_x/2, new.racquet_y + new.racquet_img_y/2, 'dynamic')
-  new.shape_racquet = love.physics.newRectangleShape(new.racquet_x, new.racquet_y)
+  new.body_racquet = love.physics.newBody(world, new.racquet_x, new.racquet_y, 'dynamic')
+  new.shape_racquet = love.physics.newCircleShape(30)
   new.fixture_racquet = love.physics.newFixture(new.body_racquet, new.shape_racquet, 1)
   new.has_racquet = false
   new.has_swiping = false
