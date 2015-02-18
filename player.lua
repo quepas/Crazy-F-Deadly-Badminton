@@ -15,6 +15,14 @@ function newPlayer(x, y, world)
   new.body = love.physics.newBody(world, x + new.img_x/2, y + new.img_y/2, 'dynamic')
   new.shape = love.physics.newRectangleShape(new.img_x, new.img_y)
   new.fixture = love.physics.newFixture(new.body, new.shape, 1)
+  new.racquet_x = new.x + 100
+  new.racquet_y = new.y + 45
+  new.racquet_img = love.graphics.newImage("img/Racquet.png")
+  new.racquet_img_x = new.racquet_img:getWidth()
+  new.racquet_img_y = new.racquet_img:getHeight()
+  new.racquet_body = love.physics.newBody(world, new.racquet_x, new.racquet_y, 'dynamic')
+  new.racquet_shape = love.physics.newCircleShape(30)
+  new.racquet_fixture = love.physics.newFixture(new.racquet_body, new.racquet_shape, 1)
   new.has_racquet = false
   new.has_swiping = false
   new.actual_angle = START_ANGLE
@@ -51,14 +59,6 @@ end
 
 function player:setRacquet(img)
   self.racquet = love.graphics.newImage(img)
-  self.racquet_x = self.x + 100
-  self.racquet_y = self.y + 45
-  self.racquet_img = love.graphics.newImage(img)
-  self.racquet_img_x = self.racquet_img:getWidth()
-  self.racquet_img_y = self.racquet_img:getHeight()
-  self.racquet_body = love.physics.newBody(world, self.racquet_x, self.racquet_y, 'dynamic')
-  self.racquet_shape = love.physics.newCircleShape(30)
-  self.racquet_fixture = love.physics.newFixture(self.racquet_body, self.racquet_shape, 1)
   self.has_racquet = true
 end
 
