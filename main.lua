@@ -8,8 +8,8 @@ function love.load()
 	pitch = love.graphics.newImage('img/Pitch.png')
 	love.physics.setMeter(PX_IN_M)
 	world = love.physics.newWorld(0, 9.81*PX_IN_M, true)
-	the_man = newPlayer(100, 390, world)
-	the_man1 = newPlayer(635, 390, world) 
+	the_man = newPlayer(100, 200, world)
+	the_man1 = newPlayer(635, 200, world) 
 	the_man:setRacquet('img/Racquet.png')
 	the_man1:setRacquet('img/Racquet.png') 
 	objects = {}
@@ -88,4 +88,3 @@ function love.draw()
 	love.graphics.circle('fill', objects.ball.body:getX(), objects.ball.body:getY(), objects.ball.shape:getRadius())
 	love.graphics.setColor(255, 255, 255)
 end
-
