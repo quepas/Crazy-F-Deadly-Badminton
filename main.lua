@@ -40,7 +40,7 @@ function love.load()
 --	objects.boundry_center.fixture = love.physics.newFixture(objects.boundry_center.body, objects.boundry_center.shape)
 
 	objects.ball = {}
-	objects.ball.body = love.physics.newBody(world, 400, 400, 'dynamic')
+	objects.ball.body = love.physics.newBody(world, the_man:getX(), 100, 'dynamic')
 	objects.ball.shape = love.physics.newCircleShape(8)
 	objects.ball.fixture = love.physics.newFixture(objects.ball.body, objects.ball.shape, 1)
 	objects.ball.fixture:setRestitution(0.9)
@@ -73,6 +73,11 @@ function love.update(dt)
 	end
 	if love.keyboard.isDown('g') then
 		the_man1:swipe()
+	end
+
+	if love.keyboard.isDown('r') then
+		objects.ball.body:setPosition(the_man:getX(), 100)
+		objects.ball.body:setLinearVelocity(0, 0)
 	end
 
 	the_man:update(dt)
