@@ -4,6 +4,7 @@ player.__index = player
 local START_ANGLE = -45
 local END_ANGLE = 30
 local DIFF_ANGLE = 4.2
+local RACQUET_BODY_RADIUS = 18
 
 function newPlayer(x, y, world)
   local new = {}
@@ -15,17 +16,18 @@ function newPlayer(x, y, world)
   new.body = love.physics.newBody(world, x + new.img_x/2, y + new.img_y/2, 'dynamic')
   new.shape = love.physics.newRectangleShape(new.img_x, new.img_y)
   new.fixture = love.physics.newFixture(new.body, new.shape, 1)
-  new.racquet_x = new.x + 100
-  new.racquet_y = new.y + 45
+  new.racquet_x = new.x + 60
+  new.racquet_y = new.y
   new.racquet_img = love.graphics.newImage("img/Racquet.png")
   new.racquet_img_x = new.racquet_img:getWidth()
   new.racquet_img_y = new.racquet_img:getHeight()
   new.racquet_body = love.physics.newBody(world, new.racquet_x, new.racquet_y, 'dynamic')
-  new.racquet_shape = love.physics.newCircleShape(30)
+  new.racquet_shape = love.physics.newCircleShape(RACQUET_BODY_RADIUS)
   new.racquet_fixture = love.physics.newFixture(new.racquet_body, new.racquet_shape, 1)
   new.has_racquet = false
   new.has_swiping = false
   new.actual_angle = START_ANGLE
+  new.joint = love.physics.newWeldJoint(new.body, new.racquet_body, new.racquet_x, new.racquet_y, false)
 
   return setmetatable(new, player)
 end
@@ -84,6 +86,13 @@ function player:draw()
   if self.has_racquet then
     love.graphics.draw(self.racquet, self.x + 100, self.y + 45, math.rad(self.actual_angle), 1, 1, self.racquet:getWidth()/2,  self.racquet:getHeight())
     x, y = self.racquet_body:getPosition()
-    love.graphics.circle("fill", x, y, 30, 100)
+    love.graphics.circle("fill", x, y, RACQUET_BODY_RADIUS, 100)
+    love.graphics.setColor(255, 0, 0);
+    circle_x = -20
+    circle_y = 10
+    love.graphics.circle("fill",
+      circle_x * math.cos(math.rad(self.actual_angle)) - circle_y * math.sin(math.rad(self.actual_angle)) + self.x + 60, 
+      circle_x * math.sin(math.rad(self.actual_angle)) + circle_x * math.cos(math.rad(self.actual_angle)) + self.y, 10, 100)
+    love.graphics.setColor(255, 255, 255);
   end
 end
