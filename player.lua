@@ -5,10 +5,7 @@ local START_ANGLE = -45
 local END_ANGLE = 30
 local DIFF_ANGLE = 4.2
 local RACQUET_BODY_RADIUS = 18
-circle_x = 0
-circle_y = 0
 local STEP = 0.056
-step = 0
 
 function newPlayer(x, y, world)
   local new = {}
@@ -32,6 +29,9 @@ function newPlayer(x, y, world)
   new.has_swiping = false
   new.actual_angle = START_ANGLE
   new.joint = love.physics.newWeldJoint(new.body, new.racquet_body, new.racquet_x, new.racquet_y, false)
+  new.circle_x = 0
+  new.circle_y = 0
+  new.step = 0
 
   return setmetatable(new, player)
 end
@@ -76,13 +76,14 @@ end
 
 function player:update(dt)
   self:moveTo(self.body:getX()-self.img_x/2, self.body:getY()-self.img_y/2)
-  circle_x = self.x + 60
-  circle_y = self.y
+  self.circle_x = self.x + 60
+  self.circle_y = self.y
   if self.has_swiping then
     self.actual_angle = self.actual_angle + DIFF_ANGLE
-    circle_x = circle_x + ((40) * step)
-    step = STEP + step
-    if step > 1.0 then step = 0.0 end
+    self.circle_x = self.circle_x + (60 * self.step)
+    self.circle_y = self.circle_y + (-10 * self.step)
+    self.step = STEP + self.step
+    if self.step > 1.0 then self.step = 0.0 end
     if self.actual_angle > END_ANGLE then
       self.has_swiping = false
       self.actual_angle = START_ANGLE
@@ -94,10 +95,8 @@ function player:draw()
   love.graphics.draw(self.img, self.x, self.y)
   if self.has_racquet then
     love.graphics.draw(self.racquet, self.x + 100, self.y + 45, math.rad(self.actual_angle), 1, 1, self.racquet:getWidth()/2,  self.racquet:getHeight())
+    self.racquet_body:setPosition(self.circle_x, self.circle_y)
     x, y = self.racquet_body:getPosition()
     love.graphics.circle("fill", x, y, RACQUET_BODY_RADIUS, 100)
-    love.graphics.setColor(255, 0, 0);
-    love.graphics.circle("fill", circle_x, circle_y, 10, 100)
-    love.graphics.setColor(255, 255, 255);
   end
 end
