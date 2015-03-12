@@ -83,5 +83,7 @@ function player:draw()
   love.graphics.draw(self.img, self.x, self.y)
   if self.has_racquet then
     love.graphics.draw(self.racquet, self.x + 100, self.y + 45, math.rad(self.actual_angle), 1, 1, self.racquet:getWidth()/2,  self.racquet:getHeight())
+    x, y = self.racquet_body:getPosition()
+    love.graphics.circle("fill", x, y, 30, 100)
   end
 end
